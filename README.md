@@ -8,6 +8,21 @@
 
 ---
 
+## 🔑 Judge & Evaluator Credentials (Quick Access)
+
+> **Live Deployment / Evaluation Access**: Click any profile card on the login screen (`/`) to populate the identity, then enter the corresponding password below to sign in:
+
+| Profile / Role | Full Name | Username (Email ID) | Password | Portal Destination |
+| :--- | :--- | :--- | :--- | :--- |
+| **👑 1. Admin (Dean's Office)** | Prof. Alok Sharma (Dean Academic) | `admin@cit.edu.in` | `citadmin2026` | `/admin` |
+| **🏢 2. Dept Coordinator** | Dr. Sunita Mohanty (CSE) | `coordinator.cse@cit.edu.in` | `citcoord2026` | `/coordinator` |
+| **🎓 3. Faculty Member** | Dr. Rajesh Tripathy (ECE) | `faculty.ece@cit.edu.in` | `citfaculty2026` | `/faculty` |
+| **🎪 4. Club Representative** | Priyansh Verma (Spectra Lead) | `club.spectra@cit.edu.in` | `citclub2026` | `/club` |
+
+> 🔄 **Clean State Reset**: When testing different scenarios or custom requests, judges can click the **`Reset Demo`** button on the top-right header of the **Admin Dashboard (`/admin`)** to immediately flush all changes and restore the system to a clean baseline state.
+
+---
+
 ## 🏛️ System Overview
 
 TechZephyr is a production-grade campus scheduling engine built for the **Chilika Institute of Technology (CIT)**. It solves complex constraints across **40 faculty**, **27 campus rooms**, **14 student cohorts**, **189 teaching sessions**, **41 midsem exams**, and **25 Spectra tech fest venue requests**.
