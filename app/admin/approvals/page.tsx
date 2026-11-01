@@ -58,7 +58,7 @@ export default function ApprovalsPage() {
   const loadRequests = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/requests");
+      const res = await fetch(`/api/requests?_t=${Date.now()}`, { cache: "no-store" });
       const data = await res.json();
       if (data.requests) {
         const formattedAcademic: RequestApproval[] = data.requests.map((r: any) => ({
