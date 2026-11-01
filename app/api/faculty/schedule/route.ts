@@ -6,7 +6,7 @@ import os from "os";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const facultyId = searchParams.get("faculty_id") || "F01";
+    const facultyId = searchParams.get("faculty_id") || "F09";
     const dept = searchParams.get("dept");
 
     const schedulePath = path.join(process.cwd(), "exports", "schedule.json");
@@ -162,7 +162,7 @@ export async function GET(req: Request) {
         const meta = rawExams[ex.exam_id] || {};
         const matchesFacultyCourse = meta.course_ids && meta.course_ids.some((c: string) => facultyCourses.includes(c));
         
-        if (matchesFacultyCourse || invigilations.length < 3) {
+        if (matchesFacultyCourse) {
           const roomNames = (ex.rooms || []).map((rid: string) => rooms[rid]?.name || rid).join(", ");
           invigilations.push({
             exam_id: ex.exam_id,

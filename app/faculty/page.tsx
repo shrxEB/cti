@@ -124,7 +124,7 @@ function FacultyContent() {
     const loadLiveFacultySchedule = async () => {
       setLoadingSchedule(true);
       try {
-        const res = await fetch("/api/faculty/schedule?faculty_id=F01");
+        const res = await fetch("/api/faculty/schedule?faculty_id=F09");
         const data = await res.json();
         if (data.sessions && data.sessions.length > 0) {
           setSchedule(
@@ -181,17 +181,15 @@ function FacultyContent() {
     new Set(schedule.map((s) => s.course_id || s.course.split(" ")[0]))
   ).filter(Boolean);
 
-  // Unavailability state - initialized and persisted in localStorage so changes survive page refreshes
-  const [unavailabilities, setUnavailabilities] = useState<string[]>([
-    "Wednesday P6–P9 (14:00 - 18:00) – HOD Meeting (Fixed Unavailability)",
-  ]);
+  // Unavailability state - initialized empty and persisted in localStorage so user-added entries survive refreshes
+  const [unavailabilities, setUnavailabilities] = useState<string[]>([]);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("cit_faculty_unavailabilities");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           setUnavailabilities(parsed);
         }
       }
@@ -346,8 +344,8 @@ function FacultyContent() {
     try {
       const payload = {
         type: requestMode,
-        faculty_id: "F01",
-        faculty_name: "Shrayans",
+        faculty_id: "F09",
+        faculty_name: "Dr. Rajesh Tripathy",
         department: "ECE",
         course: rescheduleCourse,
         section: targetSection,
@@ -1270,7 +1268,7 @@ function FacultyContent() {
                                   body: JSON.stringify({
                                     id: data.request?.id,
                                     type: "exam_leave",
-                                    faculty_id: "F01",
+                                    faculty_id: "F09",
                                     faculty_name: "Dr. Rajesh Tripathy",
                                     department: "ECE",
                                     course: `${leaveModalDuty.course_code} (${leaveModalDuty.course_title})`,
@@ -1282,7 +1280,7 @@ function FacultyContent() {
                                     priorityLevel: 1,
                                     status: "pending",
                                     exam_id: leaveModalDuty.exam_id,
-                                    original_faculty_id: "F01",
+                                    original_faculty_id: "F09",
                                     original_faculty_name: "Dr. Rajesh Tripathy",
                                     substitute_faculty_id: data.request?.substitute_faculty_id || "F02",
                                     substitute_faculty_name: data.candidate_substitute || data.request?.substitute_faculty_name || "Dr. Rohit Sahoo",
@@ -1293,7 +1291,7 @@ function FacultyContent() {
                               }
 
                               // Refresh live schedule
-                              const refreshed = await fetch("/api/faculty/schedule?faculty_id=F01");
+                              const refreshed = await fetch("/api/faculty/schedule?faculty_id=F09");
                               const refData = await refreshed.json();
                               if (refData.invigilations) setInvigilations(refData.invigilations);
                             } else {

@@ -6,7 +6,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Main Auditorium, Lecture Hall 1, Classroom A-101",
     "raw_rooms": [
       "AUD",
@@ -35,7 +35,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Main Auditorium, Lecture Hall 2, Classroom A-101",
     "raw_rooms": [
       "AUD",
@@ -62,7 +62,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Main Auditorium, Lecture Hall 2, Lecture Hall 5",
     "raw_rooms": [
       "AUD",
@@ -91,7 +91,7 @@
     "day": "Friday",
     "raw_day": "FRI",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Main Auditorium, Lecture Hall 1, Classroom A-104",
     "raw_rooms": [
       "AUD",
@@ -118,7 +118,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 2",
     "raw_rooms": [
       "LH-2"
@@ -140,7 +140,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 2",
     "raw_rooms": [
       "LH-2"
@@ -162,7 +162,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 1",
     "raw_rooms": [
       "LH-1"
@@ -184,7 +184,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 1",
     "raw_rooms": [
       "LH-1"
@@ -206,7 +206,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 2",
     "raw_rooms": [
       "LH-2"
@@ -217,7 +217,7 @@
     "students_count": 70,
     "reporting_time": "09:00 AM (30 min prior)",
     "primary_faculty_id": "F09",
-    "faculty_name": "Dr. Ishita Banerjee",
+    "faculty_name": "Dr. Rajesh Tripathy",
     "duty_role": "Lead Invigilator",
     "status": "assigned"
   },
@@ -228,7 +228,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -250,7 +250,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 1",
     "raw_rooms": [
       "LH-1"
@@ -272,7 +272,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 1",
     "raw_rooms": [
       "LH-1"
@@ -294,7 +294,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 4",
     "raw_rooms": [
       "LH-4"
@@ -316,7 +316,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Main Auditorium",
     "raw_rooms": [
       "AUD"
@@ -338,7 +338,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 5",
     "raw_rooms": [
       "LH-5"
@@ -360,7 +360,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 2",
     "raw_rooms": [
       "LH-2"
@@ -382,7 +382,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 6",
     "raw_rooms": [
       "LH-6"
@@ -404,7 +404,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 6",
     "raw_rooms": [
       "LH-6"
@@ -426,7 +426,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 3",
     "raw_rooms": [
       "LH-3"
@@ -448,7 +448,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 3",
     "raw_rooms": [
       "LH-3"
@@ -470,7 +470,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 4",
     "raw_rooms": [
       "LH-4"
@@ -492,7 +492,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 2",
     "raw_rooms": [
       "SH-2"
@@ -514,7 +514,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Seminar Hall 2",
     "raw_rooms": [
       "SH-2"
@@ -536,7 +536,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 4",
     "raw_rooms": [
       "LH-4"
@@ -558,7 +558,7 @@
     "day": "Friday",
     "raw_day": "FRI",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Main Auditorium, Seminar Hall 1",
     "raw_rooms": [
       "AUD",
@@ -585,7 +585,7 @@
     "day": "Friday",
     "raw_day": "FRI",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 2",
     "raw_rooms": [
       "LH-2"
@@ -609,7 +609,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -631,7 +631,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 1",
     "raw_rooms": [
       "LH-1"
@@ -653,7 +653,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -664,7 +664,7 @@
     "students_count": 65,
     "reporting_time": "09:00 AM (30 min prior)",
     "primary_faculty_id": "F09",
-    "faculty_name": "Dr. Ishita Banerjee",
+    "faculty_name": "Dr. Rajesh Tripathy",
     "duty_role": "Lead Invigilator",
     "status": "assigned"
   },
@@ -675,7 +675,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -697,7 +697,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -719,7 +719,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 4",
     "raw_rooms": [
       "LH-4"
@@ -741,7 +741,7 @@
     "day": "Friday",
     "raw_day": "FRI",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -763,7 +763,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 3",
     "raw_rooms": [
       "LH-3"
@@ -785,7 +785,7 @@
     "day": "Saturday",
     "raw_day": "SAT",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Lecture Hall 6",
     "raw_rooms": [
       "LH-6"
@@ -807,7 +807,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 5",
     "raw_rooms": [
       "LH-5"
@@ -829,7 +829,7 @@
     "day": "Friday",
     "raw_day": "FRI",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Lecture Hall 6",
     "raw_rooms": [
       "LH-6"
@@ -851,7 +851,7 @@
     "day": "Wednesday",
     "raw_day": "WED",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Classroom B-201",
     "raw_rooms": [
       "CR-201"
@@ -873,7 +873,7 @@
     "day": "Thursday",
     "raw_day": "THU",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Seminar Hall 2",
     "raw_rooms": [
       "SH-2"
@@ -895,7 +895,7 @@
     "day": "Monday",
     "raw_day": "MON",
     "session": "PM",
-    "time": "14:00 – 16:00 PM",
+    "time": "14:00 \u2013 16:00 PM",
     "rooms": "Seminar Hall 1",
     "raw_rooms": [
       "SH-1"
@@ -917,7 +917,7 @@
     "day": "Tuesday",
     "raw_day": "TUE",
     "session": "AM",
-    "time": "09:30 – 11:30 AM",
+    "time": "09:30 \u2013 11:30 AM",
     "rooms": "Main Auditorium, Classroom A-102",
     "raw_rooms": [
       "AUD",

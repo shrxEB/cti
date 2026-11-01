@@ -79,44 +79,8 @@ function readRequests(): AcademicRequest[] {
     }
   }
 
-  // 3. Fallback initial seed
-  const initial: AcademicRequest[] = [
-    {
-      id: "AR-201",
-      type: "extra_class",
-      faculty_id: "F01",
-      faculty_name: "Dr. Rajesh Tripathy",
-      department: "Electronics & Communication",
-      course: "EC301 Signals & Systems",
-      section: "ECE-2",
-      venue: "Room 201",
-      day: "Tuesday",
-      period: "P2 (09:00 - 10:00)",
-      reason: "Pre-Midsem syllabus revision problem solving session",
-      priorityLevel: 2,
-      status: "pending",
-      created_at: new Date().toISOString(),
-    },
-    {
-      id: "AR-202",
-      type: "reschedule",
-      faculty_id: "F03",
-      faculty_name: "Dr. Sunita Mohanty",
-      department: "Computer Science & Engineering",
-      course: "CS101 Intro to Computing",
-      section: "Y1-A",
-      venue: "Lecture Hall 1",
-      day: "Thursday",
-      period: "P3 (10:00 - 11:00)",
-      reason: "Faculty attending Academic Council meeting on Wednesday",
-      priorityLevel: 2,
-      status: "pending",
-      created_at: new Date().toISOString(),
-    },
-  ];
-
-  writeRequests(initial);
-  return initial;
+  // 3. Fallback: return empty list if no requests submitted yet
+  return [];
 }
 
 function writeRequests(requests: AcademicRequest[]) {

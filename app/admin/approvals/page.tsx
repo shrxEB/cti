@@ -42,54 +42,6 @@ interface RequestApproval {
   original_faculty_name?: string;
 }
 
-const SPECTRA_DEFAULT: RequestApproval[] = [
-  {
-    id: "SPEC-01",
-    sourceText: "Battle of the Bands (Rock Night) in Main Auditorium Thursday 6 PM to 10 PM",
-    applicant: "Music Club",
-    venue: "Main Auditorium",
-    day: "Thursday (Week 7)",
-    period: "P10 – P13 (18:00 - 22:00)",
-    priorityLevel: 6,
-    status: "approved",
-    reason: "Approved: Evening event period (P10 to P13) has zero academic lecture clashes.",
-  },
-  {
-    id: "SPEC-02",
-    sourceText: "RoboWars Arena Trials in OAT Wednesday 11 AM to 3 PM",
-    applicant: "Robotics Club",
-    venue: "Open-Air Theatre (OAT)",
-    day: "Wednesday (Week 7)",
-    period: "P4 – P6 (11:00 - 15:00)",
-    priorityLevel: 6,
-    status: "rejected",
-    reason: "Rejected: Hard constraint violation — runs across mandatory lunch interval (13:00–14:00) and clashes with scheduled lecture in adjacent quad.",
-  },
-  {
-    id: "SPEC-03",
-    sourceText: "LAN Gaming Qualifier Round in Computer Lab 1 Tuesday 2 PM to 5 PM",
-    applicant: "GameDev Society",
-    venue: "Computer Lab 1",
-    day: "Tuesday (Week 7)",
-    period: "P6 – P8 (14:00 - 17:00)",
-    priorityLevel: 6,
-    status: "alternative_suggested",
-    reason: "Contention: Computer Lab 1 is pre-assigned to CS202 Lab Practical (Regular Class Priority 2 overrides Club Priority 6).",
-    alternative: "Alternative Proposed: Computer Lab 3 is completely open on Tuesday P10 to P12 (18:00 - 21:00 Evening slot).",
-  },
-  {
-    id: "SPEC-04",
-    sourceText: "Guest Lecture: AI in Healthcare by Dr. Rao in Seminar Hall 1 Wednesday 3 PM",
-    applicant: "Dept Coordinator (CSE)",
-    venue: "Seminar Hall 1",
-    day: "Wednesday (Week 7)",
-    period: "P7 – P8 (15:00 - 17:00)",
-    priorityLevel: 4,
-    status: "approved",
-    reason: "Approved: Guest lecture (Priority 4) has precedence over general club requests.",
-  },
-];
-
 export default function ApprovalsPage() {
   const [activeFilter, setActiveFilter] = useState<"all" | "chatbot" | "exams" | "academic" | "spectra">("all");
   const [requests, setRequests] = useState<RequestApproval[]>([]);
@@ -139,13 +91,13 @@ export default function ApprovalsPage() {
           original_faculty_name: r.original_faculty_name,
         }));
 
-        setRequests([...formattedAcademic, ...SPECTRA_DEFAULT]);
+        setRequests(formattedAcademic);
       } else {
-        setRequests(SPECTRA_DEFAULT);
+        setRequests([]);
       }
     } catch (err) {
       console.error("Failed to load requests:", err);
-      setRequests(SPECTRA_DEFAULT);
+      setRequests([]);
     } finally {
       setLoading(false);
     }
