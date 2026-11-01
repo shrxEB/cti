@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDatabase, resetDemoDatabase, isNeonConfigured, DEMO_ACCOUNTS } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import fs from "fs";
+import path from "path";
 
 export async function GET() {
   const result = await initDatabase();
@@ -32,6 +34,21 @@ export async function POST(req: NextRequest) {
         );
       }
       const resetResult = await resetDemoDatabase();
+
+      // Reset dynamic requests and disruption files back to pristine demo state
+      try {
+        const REQUESTS_FILE = path.join(process.cwd(), "exports", "academic_requests.json");
+        const EXAMS_STORE_FILE = path.join(process.cwd(), "exports", "exam_invigilations.json");
+        if (fs.existsSync(REQUESTS_FILE)) {
+          fs.unlinkSync(REQUESTS_FILE);
+        }
+        if (fs.existsSync(EXAMS_STORE_FILE)) {
+          fs.unlinkSync(EXAMS_STORE_FILE);
+        }
+      } catch (fileErr) {
+        console.warn("Resetting export files note:", fileErr);
+      }
+
       return NextResponse.json(resetResult);
     }
 

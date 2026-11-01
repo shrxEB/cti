@@ -139,16 +139,19 @@ Visit **`http://localhost:3000`** in your browser.
 
 ---
 
-## 🔐 Demo Credentials
+## 🔐 Demo Credentials for Evaluation
 
-Click any role profile on the login screen to select it, then enter the corresponding credential:
+Judges and evaluators can log in using any of the four verified institutional accounts. On the landing page, click a role card to populate the institutional identity, then input the password to sign in:
 
-| Profile | Email ID | Password | Access Destination |
-| :--- | :--- | :--- | :--- |
-| **Admin (Dean's Office)** | `admin@cit.edu.in` | `citadmin2026` | `/admin` |
-| **Dept Coordinator** | `coordinator.cse@cit.edu.in` | `citcoord2026` | `/coordinator` |
-| **Faculty Member** | `faculty.ece@cit.edu.in` | `citfaculty2026` | `/faculty` |
-| **Club Representative** | `club.spectra@cit.edu.in` | `citclub2026` | `/club` |
+| Role | Name & Department | Login Email ID | Password | Portal Destination |
+| :--- | :--- | :--- | :--- | :--- |
+| **Admin (Dean's Office)** | Prof. Alok Sharma (Dean Academic) | `admin@cit.edu.in` | `citadmin2026` | `/admin` |
+| **Dept Coordinator** | Dr. Sunita Mohanty (CSE) | `coordinator.cse@cit.edu.in` | `citcoord2026` | `/coordinator` |
+| **Faculty Member** | Dr. Rajesh Tripathy (ECE) | `faculty.ece@cit.edu.in` | `citfaculty2026` | `/faculty` |
+| **Club Representative** | Priyansh Verma (Spectra Fest Lead) | `club.spectra@cit.edu.in` | `citclub2026` | `/club` |
+
+> 🔄 **Clean State Reset for Evaluators**:
+> When testing different scenarios or after creating test requests, judges can click the **`Reset Demo`** button on the top-right header of the **Admin Dashboard (`/admin`)**. This immediately flushes any test disruptions or custom submissions and restores all database records and schedules back to the pristine baseline state.
 
 ---
 
