@@ -5,12 +5,19 @@
 [![Official Validator](https://img.shields.io/badge/Validator-Passing_100%25-064e43?style=for-the-badge&logo=python)](starter_pack/validator.py)
 [![Hard Violations](https://img.shields.io/badge/Hard_Violations-0-emerald?style=for-the-badge)](starter_pack/validator.py)
 [![Priority Inversions](https://img.shields.io/badge/Priority_Inversions-0-blue?style=for-the-badge)](starter_pack/validator.py)
+[![Live Deployment](https://img.shields.io/badge/Live_App-cti--indol.vercel.app-0284c7?style=for-the-badge&logo=vercel)](https://cti-indol.vercel.app/)
+
+---
+
+## 🌐 Live Deployed Application
+
+👉 **[https://cti-indol.vercel.app/](https://cti-indol.vercel.app/)**
 
 ---
 
 ## 🔑 Judge & Evaluator Credentials (Quick Access)
 
-> **Live Deployment / Evaluation Access**: Click any profile card on the login screen (`/`) to populate the identity, then enter the corresponding password below to sign in:
+> **Live Deployment / Evaluation Access**: Visit **[https://cti-indol.vercel.app/](https://cti-indol.vercel.app/)**, click any profile card on the login screen to populate the identity, then enter the corresponding password below to sign in:
 
 | Profile / Role | Full Name | Username (Email ID) | Password | Portal Destination |
 | :--- | :--- | :--- | :--- | :--- |

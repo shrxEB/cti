@@ -28,7 +28,7 @@ const ROLE_DISPLAY: Record<string, string> = {
 
 export async function sendCredentialsEmail(params: SendCredentialsParams): Promise<EmailDispatchResult> {
   const roleName = ROLE_DISPLAY[params.role] || params.role;
-  const portalUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const portalUrl = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cti-indol.vercel.app");
 
   const subject = `Welcome to CIT Scheduler — Your ${roleName} Login Credentials`;
 

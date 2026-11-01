@@ -119,7 +119,8 @@ export default function AdminPage() {
 
   const copyCredentials = () => {
     if (!provResult) return;
-    const text = `CIT Scheduler Account Details:\nName: ${provResult.user.name}\nRole: ${provResult.user.role}\nEmail: ${provResult.user.email}\nInitial Password: ${provPassword}\nLogin Portal: http://localhost:3000`;
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://cti-indol.vercel.app";
+    const text = `CIT Scheduler Account Details:\nName: ${provResult.user.name}\nRole: ${provResult.user.role}\nEmail: ${provResult.user.email}\nInitial Password: ${provPassword}\nLogin Portal: ${origin}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -127,10 +128,11 @@ export default function AdminPage() {
 
   const openMailClient = () => {
     if (!provResult) return;
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://cti-indol.vercel.app";
     const recipient = provResult.emailResult?.recipient || provResult.user.email;
     const subject = encodeURIComponent(`Welcome to CIT Scheduler — Your Login Credentials`);
     const body = encodeURIComponent(
-      `Dear ${provResult.user.name},\n\nThe Dean's Office has created your account on the CIT Scheduler Platform.\n\nLogin URL: http://localhost:3000\nEmail ID: ${provResult.user.email}\nPassword: ${provPassword}\nRole: ${provResult.user.role}\n\nPlease sign in and manage your schedule.\n\nRegards,\nCIT Dean Academic Affairs`
+      `Dear ${provResult.user.name},\n\nThe Dean's Office has created your account on the CIT Scheduler Platform.\n\nLogin URL: ${origin}\nEmail ID: ${provResult.user.email}\nPassword: ${provPassword}\nRole: ${provResult.user.role}\n\nPlease sign in and manage your schedule.\n\nRegards,\nCIT Dean Academic Affairs`
     );
     window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, "_blank");
   };
