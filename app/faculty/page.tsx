@@ -181,10 +181,25 @@ function FacultyContent() {
     new Set(schedule.map((s) => s.course_id || s.course.split(" ")[0]))
   ).filter(Boolean);
 
-  // Unavailability state
+  // Unavailability state - initialized and persisted in localStorage so changes survive page refreshes
   const [unavailabilities, setUnavailabilities] = useState<string[]>([
     "Wednesday P6–P9 (14:00 - 18:00) – HOD Meeting (Fixed Unavailability)",
   ]);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("cit_faculty_unavailabilities");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setUnavailabilities(parsed);
+        }
+      }
+    } catch (e) {
+      // localStorage fallback
+    }
+  }, []);
+
   const [leaveDay, setLeaveDay] = useState("Wednesday");
   const [leavePeriod, setLeavePeriod] = useState("P3 (10:00 - 11:00)");
   const [leaveReason, setLeaveReason] = useState("");
@@ -302,7 +317,14 @@ function FacultyContent() {
   const handleAddLeave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!leaveReason.trim()) return alert("Please specify an unavailability reason.");
-    setUnavailabilities((p) => [...p, `${leaveDay} ${leavePeriod} – ${leaveReason}`]);
+    const entry = `${leaveDay} ${leavePeriod} – ${leaveReason}`;
+    setUnavailabilities((prev) => {
+      const updated = [...prev, entry];
+      try {
+        localStorage.setItem("cit_faculty_unavailabilities", JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
     setLeaveMsg(`✓ Unavailability registered for ${leaveDay} ${leavePeriod}. Solver will protect this slot from rescheduling.`);
     setLeaveReason("");
   };
