@@ -279,12 +279,26 @@ export async function POST(req: Request) {
       invigilations[idx].leave_reason = reason || "Unavailability reported by faculty";
       saveInvigilations(invigilations);
 
-      // Submit into exports/academic_requests.json for Dean review
+      // Submit into requests store for Dean review
       const REQUESTS_FILE = path.join(process.cwd(), "exports", "academic_requests.json");
+      const TMP_REQUESTS_FILE = path.join(os.tmpdir(), "academic_requests.json");
       let requestsList: any[] = [];
-      if (fs.existsSync(REQUESTS_FILE)) {
+
+      // Check /tmp first, then repo file
+      if (fs.existsSync(TMP_REQUESTS_FILE)) {
         try {
-          requestsList = JSON.parse(fs.readFileSync(REQUESTS_FILE, "utf-8"));
+          const parsed = JSON.parse(fs.readFileSync(TMP_REQUESTS_FILE, "utf-8"));
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            requestsList = parsed;
+          }
+        } catch (e) {}
+      }
+      if (requestsList.length === 0 && fs.existsSync(REQUESTS_FILE)) {
+        try {
+          const parsed = JSON.parse(fs.readFileSync(REQUESTS_FILE, "utf-8"));
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            requestsList = parsed;
+          }
         } catch (e) {
           console.error("Error reading requests file:", e);
         }
@@ -315,7 +329,12 @@ export async function POST(req: Request) {
 
       requestsList.unshift(examLeaveRequest);
       try {
-        fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requestsList, null, 2), "utf-8");
+        fs.writeFileSync(TMP_REQUESTS_FILE, JSON.stringify(requestsList, null, 2), "utf-8");
+      } catch (err) {}
+      try {
+        if (fs.existsSync(path.dirname(REQUESTS_FILE))) {
+          fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requestsList, null, 2), "utf-8");
+        }
       } catch (err) {
         // Fallback for serverless environment
       }

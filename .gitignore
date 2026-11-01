@@ -51,6 +51,5 @@ __pycache__/
 .Python
 
 # Exports / temporary logs (commit required evaluation schedules)
-exports/academic_requests.json
 
 
