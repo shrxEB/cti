@@ -1261,6 +1261,37 @@ function FacultyContent() {
                             if (res.ok) {
                               setLeaveSuccessFeedback(data.message);
                               setLeaveModalDuty(null);
+
+                              // Ensure request is synced to the Dean's approval queue API directly
+                              try {
+                                await fetch("/api/requests", {
+                                  method: "POST",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({
+                                    id: data.request?.id,
+                                    type: "exam_leave",
+                                    faculty_id: "F01",
+                                    faculty_name: "Dr. Rajesh Tripathy",
+                                    department: "ECE",
+                                    course: `${leaveModalDuty.course_code} (${leaveModalDuty.course_title})`,
+                                    section: leaveModalDuty.groups?.join(", ") || "Examinees",
+                                    venue: leaveModalDuty.rooms,
+                                    day: leaveModalDuty.day,
+                                    period: `${leaveModalDuty.session} (${leaveModalDuty.time})`,
+                                    reason: leaveModalReason,
+                                    priorityLevel: 1,
+                                    status: "pending",
+                                    exam_id: leaveModalDuty.exam_id,
+                                    original_faculty_id: "F01",
+                                    original_faculty_name: "Dr. Rajesh Tripathy",
+                                    substitute_faculty_id: data.request?.substitute_faculty_id || "F02",
+                                    substitute_faculty_name: data.candidate_substitute || data.request?.substitute_faculty_name || "Dr. Rohit Sahoo",
+                                  }),
+                                });
+                              } catch (syncErr) {
+                                console.warn("Direct queue sync warning:", syncErr);
+                              }
+
                               // Refresh live schedule
                               const refreshed = await fetch("/api/faculty/schedule?faculty_id=F01");
                               const refData = await refreshed.json();
