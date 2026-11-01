@@ -1,0 +1,940 @@
+[
+  {
+    "exam_id": "EX-MA101",
+    "course_code": "MA101",
+    "course_title": "Calculus and Linear Algebra",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Main Auditorium, Lecture Hall 1, Classroom A-101",
+    "raw_rooms": [
+      "AUD",
+      "LH-1",
+      "CR-101"
+    ],
+    "groups": [
+      "Y1-A",
+      "Y1-B",
+      "Y1-C",
+      "Y1-D"
+    ],
+    "students_count": 360,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F26",
+    "faculty_name": "Dr. Abhishek Rout",
+    "duty_role": "Lead Invigilator",
+    "status": "leave_requested",
+    "reassigned_from": "Dr. Shalini Gupta",
+    "leave_reason": "hhhh"
+  },
+  {
+    "exam_id": "EX-PH101",
+    "course_code": "PH101",
+    "course_title": "Engineering Physics",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Main Auditorium, Lecture Hall 2, Classroom A-101",
+    "raw_rooms": [
+      "AUD",
+      "LH-2",
+      "CR-101"
+    ],
+    "groups": [
+      "Y1-A",
+      "Y1-B",
+      "Y1-C",
+      "Y1-D"
+    ],
+    "students_count": 360,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F21",
+    "faculty_name": "Dr. Lakshmi Reddy",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS101",
+    "course_code": "CS101",
+    "course_title": "Programming in C",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Main Auditorium, Lecture Hall 2, Lecture Hall 5",
+    "raw_rooms": [
+      "AUD",
+      "LH-2",
+      "LH-5"
+    ],
+    "groups": [
+      "Y1-A",
+      "Y1-B",
+      "Y1-C",
+      "Y1-D"
+    ],
+    "students_count": 360,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F02",
+    "faculty_name": "Dr. Rohit Sahoo",
+    "duty_role": "Lead Invigilator",
+    "status": "reassigned",
+    "reassigned_from": "Dr. Ananya Mishra (Leave: kk)",
+    "leave_reason": "kk"
+  },
+  {
+    "exam_id": "EX-HS101",
+    "course_code": "HS101",
+    "course_title": "Communicative English",
+    "day": "Friday",
+    "raw_day": "FRI",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Main Auditorium, Lecture Hall 1, Classroom A-104",
+    "raw_rooms": [
+      "AUD",
+      "LH-1",
+      "CR-104"
+    ],
+    "groups": [
+      "Y1-A",
+      "Y1-B",
+      "Y1-C",
+      "Y1-D"
+    ],
+    "students_count": 360,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F36",
+    "faculty_name": "Dr. Ashok Mahapatra",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS201",
+    "course_code": "CS201",
+    "course_title": "Data Structures",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 2",
+    "raw_rooms": [
+      "LH-2"
+    ],
+    "groups": [
+      "CSE-2"
+    ],
+    "students_count": 80,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F02",
+    "faculty_name": "Dr. Rohit Sahoo",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS202",
+    "course_code": "CS202",
+    "course_title": "Discrete Mathematics",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 2",
+    "raw_rooms": [
+      "LH-2"
+    ],
+    "groups": [
+      "CSE-2"
+    ],
+    "students_count": 80,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F06",
+    "faculty_name": "Dr. Arjun Mehta",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS203",
+    "course_code": "CS203",
+    "course_title": "Digital Logic Design",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 1",
+    "raw_rooms": [
+      "LH-1"
+    ],
+    "groups": [
+      "CSE-2"
+    ],
+    "students_count": 80,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F07",
+    "faculty_name": "Dr. Pooja Das",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS204",
+    "course_code": "CS204",
+    "course_title": "Object-Oriented Programming",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 1",
+    "raw_rooms": [
+      "LH-1"
+    ],
+    "groups": [
+      "CSE-2"
+    ],
+    "students_count": 80,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F08",
+    "faculty_name": "Prof. Vikram Rao (Visiting)",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC201",
+    "course_code": "EC201",
+    "course_title": "Signals and Systems",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 2",
+    "raw_rooms": [
+      "LH-2"
+    ],
+    "groups": [
+      "ECE-2"
+    ],
+    "students_count": 70,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F09",
+    "faculty_name": "Dr. Ishita Banerjee",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC202",
+    "course_code": "EC202",
+    "course_title": "Network Theory",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "ECE-2"
+    ],
+    "students_count": 70,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F10",
+    "faculty_name": "Dr. Suresh Pradhan",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC203",
+    "course_code": "EC203",
+    "course_title": "Electronic Devices",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 1",
+    "raw_rooms": [
+      "LH-1"
+    ],
+    "groups": [
+      "ECE-2"
+    ],
+    "students_count": 70,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F11",
+    "faculty_name": "Dr. Neha Kulkarni",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC204",
+    "course_code": "EC204",
+    "course_title": "Probability and Random Processes",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 1",
+    "raw_rooms": [
+      "LH-1"
+    ],
+    "groups": [
+      "ECE-2"
+    ],
+    "students_count": 70,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F12",
+    "faculty_name": "Dr. Amit Behera",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE201",
+    "course_code": "EE201",
+    "course_title": "Circuit Analysis",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 4",
+    "raw_rooms": [
+      "LH-4"
+    ],
+    "groups": [
+      "EE-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F14",
+    "faculty_name": "Dr. Kunal Joshi",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE202",
+    "course_code": "EE202",
+    "course_title": "Electrical Machines I",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Main Auditorium",
+    "raw_rooms": [
+      "AUD"
+    ],
+    "groups": [
+      "EE-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F15",
+    "faculty_name": "Dr. Sneha Mohanty",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE203",
+    "course_code": "EE203",
+    "course_title": "Electrical Measurements",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 5",
+    "raw_rooms": [
+      "LH-5"
+    ],
+    "groups": [
+      "EE-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F16",
+    "faculty_name": "Dr. Rakesh Panda",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE204",
+    "course_code": "EE204",
+    "course_title": "Electromagnetic Fields",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 2",
+    "raw_rooms": [
+      "LH-2"
+    ],
+    "groups": [
+      "EE-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F17",
+    "faculty_name": "Dr. Divya Menon",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME201",
+    "course_code": "ME201",
+    "course_title": "Engineering Thermodynamics",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 6",
+    "raw_rooms": [
+      "LH-6"
+    ],
+    "groups": [
+      "ME-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F25",
+    "faculty_name": "Dr. Tanvi Desai",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME202",
+    "course_code": "ME202",
+    "course_title": "Mechanics of Solids",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 6",
+    "raw_rooms": [
+      "LH-6"
+    ],
+    "groups": [
+      "ME-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F26",
+    "faculty_name": "Dr. Abhishek Rout",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME203",
+    "course_code": "ME203",
+    "course_title": "Kinematics of Machines",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 3",
+    "raw_rooms": [
+      "LH-3"
+    ],
+    "groups": [
+      "ME-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F27",
+    "faculty_name": "Dr. Sunita Bose",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME204",
+    "course_code": "ME204",
+    "course_title": "Manufacturing Processes",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 3",
+    "raw_rooms": [
+      "LH-3"
+    ],
+    "groups": [
+      "ME-2"
+    ],
+    "students_count": 60,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F28",
+    "faculty_name": "Dr. Nikhil Swain",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE201",
+    "course_code": "CE201",
+    "course_title": "Surveying",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 4",
+    "raw_rooms": [
+      "LH-4"
+    ],
+    "groups": [
+      "CE-2"
+    ],
+    "students_count": 50,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F31",
+    "faculty_name": "Dr. Anjali Verma",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE202",
+    "course_code": "CE202",
+    "course_title": "Fluid Mechanics",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 2",
+    "raw_rooms": [
+      "SH-2"
+    ],
+    "groups": [
+      "CE-2"
+    ],
+    "students_count": 50,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F32",
+    "faculty_name": "Dr. Sameer Khuntia",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE203",
+    "course_code": "CE203",
+    "course_title": "Strength of Materials",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Seminar Hall 2",
+    "raw_rooms": [
+      "SH-2"
+    ],
+    "groups": [
+      "CE-2"
+    ],
+    "students_count": 50,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F33",
+    "faculty_name": "Dr. Rekha Pillai",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE204",
+    "course_code": "CE204",
+    "course_title": "Engineering Geology",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 4",
+    "raw_rooms": [
+      "LH-4"
+    ],
+    "groups": [
+      "CE-2"
+    ],
+    "students_count": 50,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F34",
+    "faculty_name": "Dr. Varun Acharya",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-HS201",
+    "course_code": "HS201",
+    "course_title": "Principles of Economics",
+    "day": "Friday",
+    "raw_day": "FRI",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Main Auditorium, Seminar Hall 1",
+    "raw_rooms": [
+      "AUD",
+      "SH-1"
+    ],
+    "groups": [
+      "CSE-2",
+      "ECE-2",
+      "EE-2",
+      "ME-2",
+      "CE-2"
+    ],
+    "students_count": 320,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F38",
+    "faculty_name": "Dr. Imran Qureshi",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS301",
+    "course_code": "CS301",
+    "course_title": "Operating Systems",
+    "day": "Friday",
+    "raw_day": "FRI",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 2",
+    "raw_rooms": [
+      "LH-2"
+    ],
+    "groups": [
+      "CSE-3"
+    ],
+    "students_count": 75,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F02",
+    "faculty_name": "Dr. Rohit Sahoo",
+    "duty_role": "Lead Invigilator",
+    "status": "reassigned",
+    "reassigned_from": "Dr. Ananya Mishra (Leave: mmm)",
+    "leave_reason": "mmm"
+  },
+  {
+    "exam_id": "EX-CS302",
+    "course_code": "CS302",
+    "course_title": "Database Systems",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "CSE-3"
+    ],
+    "students_count": 75,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F05",
+    "faculty_name": "Dr. Meera Nair",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CS303",
+    "course_code": "CS303",
+    "course_title": "Computer Networks",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 1",
+    "raw_rooms": [
+      "LH-1"
+    ],
+    "groups": [
+      "CSE-3"
+    ],
+    "students_count": 75,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F06",
+    "faculty_name": "Dr. Arjun Mehta",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC301",
+    "course_code": "EC301",
+    "course_title": "Communication Systems",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "ECE-3"
+    ],
+    "students_count": 65,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F09",
+    "faculty_name": "Dr. Ishita Banerjee",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC302",
+    "course_code": "EC302",
+    "course_title": "Digital Signal Processing",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "ECE-3"
+    ],
+    "students_count": 65,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F10",
+    "faculty_name": "Dr. Suresh Pradhan",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EC303",
+    "course_code": "EC303",
+    "course_title": "VLSI Design",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "ECE-3"
+    ],
+    "students_count": 65,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F12",
+    "faculty_name": "Dr. Amit Behera",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE301",
+    "course_code": "EE301",
+    "course_title": "Power Systems",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 4",
+    "raw_rooms": [
+      "LH-4"
+    ],
+    "groups": [
+      "EE-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F14",
+    "faculty_name": "Dr. Kunal Joshi",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE302",
+    "course_code": "EE302",
+    "course_title": "Control Systems",
+    "day": "Friday",
+    "raw_day": "FRI",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "EE-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F15",
+    "faculty_name": "Dr. Sneha Mohanty",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-EE303",
+    "course_code": "EE303",
+    "course_title": "Power Electronics",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 3",
+    "raw_rooms": [
+      "LH-3"
+    ],
+    "groups": [
+      "EE-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F17",
+    "faculty_name": "Dr. Divya Menon",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME301",
+    "course_code": "ME301",
+    "course_title": "Heat Transfer",
+    "day": "Saturday",
+    "raw_day": "SAT",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Lecture Hall 6",
+    "raw_rooms": [
+      "LH-6"
+    ],
+    "groups": [
+      "ME-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F25",
+    "faculty_name": "Dr. Tanvi Desai",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME302",
+    "course_code": "ME302",
+    "course_title": "Machine Design",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 5",
+    "raw_rooms": [
+      "LH-5"
+    ],
+    "groups": [
+      "ME-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F26",
+    "faculty_name": "Dr. Abhishek Rout",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-ME303",
+    "course_code": "ME303",
+    "course_title": "Fluid Machines",
+    "day": "Friday",
+    "raw_day": "FRI",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Lecture Hall 6",
+    "raw_rooms": [
+      "LH-6"
+    ],
+    "groups": [
+      "ME-3"
+    ],
+    "students_count": 55,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F27",
+    "faculty_name": "Dr. Sunita Bose",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE301",
+    "course_code": "CE301",
+    "course_title": "Structural Analysis",
+    "day": "Wednesday",
+    "raw_day": "WED",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Classroom B-201",
+    "raw_rooms": [
+      "CR-201"
+    ],
+    "groups": [
+      "CE-3"
+    ],
+    "students_count": 45,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F31",
+    "faculty_name": "Dr. Anjali Verma",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE302",
+    "course_code": "CE302",
+    "course_title": "Geotechnical Engineering",
+    "day": "Thursday",
+    "raw_day": "THU",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Seminar Hall 2",
+    "raw_rooms": [
+      "SH-2"
+    ],
+    "groups": [
+      "CE-3"
+    ],
+    "students_count": 45,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F32",
+    "faculty_name": "Dr. Sameer Khuntia",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-CE303",
+    "course_code": "CE303",
+    "course_title": "Transportation Engineering",
+    "day": "Monday",
+    "raw_day": "MON",
+    "session": "PM",
+    "time": "14:00 – 16:00 PM",
+    "rooms": "Seminar Hall 1",
+    "raw_rooms": [
+      "SH-1"
+    ],
+    "groups": [
+      "CE-3"
+    ],
+    "students_count": 45,
+    "reporting_time": "13:30 PM (30 min prior)",
+    "primary_faculty_id": "F33",
+    "faculty_name": "Dr. Rekha Pillai",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  },
+  {
+    "exam_id": "EX-OE-BASKET",
+    "course_code": "OE301, OE302, OE303",
+    "course_title": "Introduction to Finance",
+    "day": "Tuesday",
+    "raw_day": "TUE",
+    "session": "AM",
+    "time": "09:30 – 11:30 AM",
+    "rooms": "Main Auditorium, Classroom A-102",
+    "raw_rooms": [
+      "AUD",
+      "CR-102"
+    ],
+    "groups": [
+      "CSE-3",
+      "ECE-3",
+      "EE-3",
+      "ME-3",
+      "CE-3"
+    ],
+    "students_count": 295,
+    "reporting_time": "09:00 AM (30 min prior)",
+    "primary_faculty_id": "F39",
+    "faculty_name": "Dr. Radhika Hegde",
+    "duty_role": "Lead Invigilator",
+    "status": "assigned"
+  }
+]

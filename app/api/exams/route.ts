@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
-const EXAMS_STORE_FILE = path.join(process.cwd(), "exports", "exam_invigilations.json");
+// Primary read path in repo, fallback write path in /tmp on read-only serverless platforms (Vercel)
+const REPO_EXAMS_STORE_FILE = path.join(process.cwd(), "exports", "exam_invigilations.json");
+const TMP_EXAMS_STORE_FILE = path.join(os.tmpdir(), "exam_invigilations.json");
+
 const SCHEDULE_FILE = path.join(process.cwd(), "exports", "schedule.json");
 const CIT_DATA_FILE = path.join(process.cwd(), "starter_pack", "data", "cit_public.json");
+
+// In-memory cache for serverless invocation lifetime
+let memoryInvigilations: InvigilationRecord[] | null = null;
 
 interface InvigilationRecord {
   exam_id: string;
@@ -37,12 +44,33 @@ const DAY_NAME_MAP: Record<string, string> = {
 };
 
 function initializeInvigilations(): InvigilationRecord[] {
-  if (fs.existsSync(EXAMS_STORE_FILE)) {
+  if (memoryInvigilations && memoryInvigilations.length > 0) {
+    return memoryInvigilations;
+  }
+
+  // Check /tmp first (persisted during serverless container life)
+  if (fs.existsSync(TMP_EXAMS_STORE_FILE)) {
     try {
-      const data = JSON.parse(fs.readFileSync(EXAMS_STORE_FILE, "utf-8"));
-      if (Array.isArray(data) && data.length > 0) return data;
+      const data = JSON.parse(fs.readFileSync(TMP_EXAMS_STORE_FILE, "utf-8"));
+      if (Array.isArray(data) && data.length > 0) {
+        memoryInvigilations = data;
+        return data;
+      }
     } catch (e) {
-      console.error("Error reading exam_invigilations.json, regenerating...", e);
+      console.warn("Could not read tmp exam invigilations:", e);
+    }
+  }
+
+  // Check repo store file
+  if (fs.existsSync(REPO_EXAMS_STORE_FILE)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(REPO_EXAMS_STORE_FILE, "utf-8"));
+      if (Array.isArray(data) && data.length > 0) {
+        memoryInvigilations = data;
+        return data;
+      }
+    } catch (e) {
+      console.warn("Could not read repo exam invigilations:", e);
     }
   }
 
@@ -106,19 +134,26 @@ function initializeInvigilations(): InvigilationRecord[] {
     });
   });
 
-  try {
-    fs.mkdirSync(path.dirname(EXAMS_STORE_FILE), { recursive: true });
-    fs.writeFileSync(EXAMS_STORE_FILE, JSON.stringify(invigilations, null, 2), "utf-8");
-  } catch (err) {
-    console.error("Failed to write initial exam invigilations:", err);
-  }
+  memoryInvigilations = invigilations;
+  saveInvigilations(invigilations);
 
   return invigilations;
 }
 
 function saveInvigilations(data: InvigilationRecord[]) {
-  fs.mkdirSync(path.dirname(EXAMS_STORE_FILE), { recursive: true });
-  fs.writeFileSync(EXAMS_STORE_FILE, JSON.stringify(data, null, 2), "utf-8");
+  memoryInvigilations = data;
+  try {
+    fs.writeFileSync(TMP_EXAMS_STORE_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch (err) {
+    // Read-only filesystem warning suppression
+  }
+  try {
+    if (fs.existsSync(path.dirname(REPO_EXAMS_STORE_FILE))) {
+      fs.writeFileSync(REPO_EXAMS_STORE_FILE, JSON.stringify(data, null, 2), "utf-8");
+    }
+  } catch (err) {
+    // Silent fallback for Vercel serverless runtime
+  }
 }
 
 // GET: Returns list of exams, faculty pool, and stats
@@ -279,7 +314,11 @@ export async function POST(req: Request) {
       };
 
       requestsList.unshift(examLeaveRequest);
-      fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requestsList, null, 2), "utf-8");
+      try {
+        fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requestsList, null, 2), "utf-8");
+      } catch (err) {
+        // Fallback for serverless environment
+      }
 
       return NextResponse.json({
         success: true,

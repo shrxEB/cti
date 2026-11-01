@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
 export interface AcademicRequest {
   id: string;
@@ -40,63 +41,97 @@ export interface AcademicRequest {
 }
 
 const REQUESTS_FILE = path.join(process.cwd(), "exports", "academic_requests.json");
+const TMP_REQUESTS_FILE = path.join(os.tmpdir(), "academic_requests.json");
+
+// In-memory cache across serverless warm invocations
+let memoryRequests: AcademicRequest[] | null = null;
 
 function readRequests(): AcademicRequest[] {
-  try {
-    if (!fs.existsSync(REQUESTS_FILE)) {
-      // Seed default queue with some initial items so Dean/Coordinator see live state immediately
-      const initial: AcademicRequest[] = [
-        {
-          id: "AR-201",
-          type: "extra_class",
-          faculty_id: "F01",
-          faculty_name: "Dr. Rajesh Tripathy",
-          department: "Electronics & Communication",
-          course: "EC301 Signals & Systems",
-          section: "ECE-2",
-          venue: "Room 201",
-          day: "Tuesday",
-          period: "P2 (09:00 - 10:00)",
-          reason: "Pre-Midsem syllabus revision problem solving session",
-          priorityLevel: 2,
-          status: "pending",
-          created_at: new Date().toISOString(),
-        },
-        {
-          id: "AR-202",
-          type: "reschedule",
-          faculty_id: "F03",
-          faculty_name: "Dr. Sunita Mohanty",
-          department: "Computer Science & Engineering",
-          course: "CS101 Intro to Computing",
-          section: "Y1-A",
-          venue: "Lecture Hall 1",
-          day: "Thursday",
-          period: "P3 (10:00 - 11:00)",
-          reason: "Faculty attending Academic Council meeting on Wednesday",
-          priorityLevel: 2,
-          status: "pending",
-          created_at: new Date().toISOString(),
-        },
-      ];
-      fs.mkdirSync(path.dirname(REQUESTS_FILE), { recursive: true });
-      fs.writeFileSync(REQUESTS_FILE, JSON.stringify(initial, null, 2));
-      return initial;
-    }
-    const raw = fs.readFileSync(REQUESTS_FILE, "utf-8");
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error("Error reading academic requests:", err);
-    return [];
+  if (memoryRequests && memoryRequests.length > 0) {
+    return memoryRequests;
   }
+
+  // 1. Try reading from /tmp (persisted during serverless container life)
+  if (fs.existsSync(TMP_REQUESTS_FILE)) {
+    try {
+      const raw = fs.readFileSync(TMP_REQUESTS_FILE, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        memoryRequests = parsed;
+        return parsed;
+      }
+    } catch (e) {
+      // fallback
+    }
+  }
+
+  // 2. Try reading from repo file
+  if (fs.existsSync(REQUESTS_FILE)) {
+    try {
+      const raw = fs.readFileSync(REQUESTS_FILE, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        memoryRequests = parsed;
+        return parsed;
+      }
+    } catch (e) {
+      // fallback
+    }
+  }
+
+  // 3. Fallback initial seed
+  const initial: AcademicRequest[] = [
+    {
+      id: "AR-201",
+      type: "extra_class",
+      faculty_id: "F01",
+      faculty_name: "Dr. Rajesh Tripathy",
+      department: "Electronics & Communication",
+      course: "EC301 Signals & Systems",
+      section: "ECE-2",
+      venue: "Room 201",
+      day: "Tuesday",
+      period: "P2 (09:00 - 10:00)",
+      reason: "Pre-Midsem syllabus revision problem solving session",
+      priorityLevel: 2,
+      status: "pending",
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "AR-202",
+      type: "reschedule",
+      faculty_id: "F03",
+      faculty_name: "Dr. Sunita Mohanty",
+      department: "Computer Science & Engineering",
+      course: "CS101 Intro to Computing",
+      section: "Y1-A",
+      venue: "Lecture Hall 1",
+      day: "Thursday",
+      period: "P3 (10:00 - 11:00)",
+      reason: "Faculty attending Academic Council meeting on Wednesday",
+      priorityLevel: 2,
+      status: "pending",
+      created_at: new Date().toISOString(),
+    },
+  ];
+
+  writeRequests(initial);
+  return initial;
 }
 
 function writeRequests(requests: AcademicRequest[]) {
+  memoryRequests = requests;
   try {
-    fs.mkdirSync(path.dirname(REQUESTS_FILE), { recursive: true });
-    fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requests, null, 2));
+    fs.writeFileSync(TMP_REQUESTS_FILE, JSON.stringify(requests, null, 2), "utf-8");
   } catch (err) {
-    console.error("Error saving academic requests:", err);
+    // Read-only filesystem warning suppression
+  }
+  try {
+    if (fs.existsSync(path.dirname(REQUESTS_FILE))) {
+      fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requests, null, 2), "utf-8");
+    }
+  } catch (err) {
+    // Silent fallback for Vercel read-only runtime
   }
 }
 
@@ -209,9 +244,24 @@ export async function PATCH(req: Request) {
     const reqItem = list[idx];
     if (reqItem.type === "exam_leave" && reqItem.exam_id) {
       const EXAMS_STORE_FILE = path.join(process.cwd(), "exports", "exam_invigilations.json");
-      if (fs.existsSync(EXAMS_STORE_FILE)) {
+      const TMP_EXAMS_STORE_FILE = path.join(os.tmpdir(), "exam_invigilations.json");
+      let invigilations: any[] = [];
+      let sourceFile = "";
+
+      if (fs.existsSync(TMP_EXAMS_STORE_FILE)) {
         try {
-          const invigilations = JSON.parse(fs.readFileSync(EXAMS_STORE_FILE, "utf-8"));
+          invigilations = JSON.parse(fs.readFileSync(TMP_EXAMS_STORE_FILE, "utf-8"));
+          sourceFile = TMP_EXAMS_STORE_FILE;
+        } catch (e) {}
+      } else if (fs.existsSync(EXAMS_STORE_FILE)) {
+        try {
+          invigilations = JSON.parse(fs.readFileSync(EXAMS_STORE_FILE, "utf-8"));
+          sourceFile = EXAMS_STORE_FILE;
+        } catch (e) {}
+      }
+
+      if (invigilations.length > 0) {
+        try {
           const invIdx = invigilations.findIndex((inv: any) => inv.exam_id === reqItem.exam_id);
           if (invIdx !== -1) {
             if (status === "approved" && reqItem.substitute_faculty_id) {
@@ -231,7 +281,15 @@ export async function PATCH(req: Request) {
               invigilations[invIdx].reassigned_from = undefined;
               invigilations[invIdx].leave_reason = `Leave Request Reverted by Dean: ${adminReason || "Duty mandatory"}`;
             }
-            fs.writeFileSync(EXAMS_STORE_FILE, JSON.stringify(invigilations, null, 2), "utf-8");
+
+            try {
+              fs.writeFileSync(TMP_EXAMS_STORE_FILE, JSON.stringify(invigilations, null, 2), "utf-8");
+            } catch (e) {}
+            try {
+              if (fs.existsSync(path.dirname(EXAMS_STORE_FILE))) {
+                fs.writeFileSync(EXAMS_STORE_FILE, JSON.stringify(invigilations, null, 2), "utf-8");
+              }
+            } catch (e) {}
           }
         } catch (e) {
           console.error("Error updating exam_invigilations from request PATCH:", e);

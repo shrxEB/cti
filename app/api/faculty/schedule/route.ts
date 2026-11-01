@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
 export async function GET(req: Request) {
   try {
@@ -125,14 +126,30 @@ export async function GET(req: Request) {
 
     // Load Faculty Midsem Exam Invigilation Duties from the shared exam_invigilations store
     const examInvigilationsPath = path.join(process.cwd(), "exports", "exam_invigilations.json");
+    const tmpExamInvigilationsPath = path.join(os.tmpdir(), "exam_invigilations.json");
     let invigilations: any[] = [];
 
-    if (fs.existsSync(examInvigilationsPath)) {
+    if (fs.existsSync(tmpExamInvigilationsPath)) {
+      try {
+        const allExamDuties = JSON.parse(fs.readFileSync(tmpExamInvigilationsPath, "utf-8"));
+        if (Array.isArray(allExamDuties) && allExamDuties.length > 0) {
+          invigilations = allExamDuties.filter(
+            (inv: any) => inv.primary_faculty_id === facultyId
+          );
+        }
+      } catch (e) {
+        console.error("Error reading tmp exam_invigilations.json:", e);
+      }
+    }
+
+    if (invigilations.length === 0 && fs.existsSync(examInvigilationsPath)) {
       try {
         const allExamDuties = JSON.parse(fs.readFileSync(examInvigilationsPath, "utf-8"));
-        invigilations = allExamDuties.filter(
-          (inv: any) => inv.primary_faculty_id === facultyId
-        );
+        if (Array.isArray(allExamDuties)) {
+          invigilations = allExamDuties.filter(
+            (inv: any) => inv.primary_faculty_id === facultyId
+          );
+        }
       } catch (e) {
         console.error("Error reading exam_invigilations.json:", e);
       }
