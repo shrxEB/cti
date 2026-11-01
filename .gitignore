@@ -49,6 +49,7 @@ __pycache__/
 *.so
 .Python
 
-# Exports / temporary logs
-exports/*.json
+# Exports / temporary logs (commit required evaluation schedules)
+exports/academic_requests.json
+
 
