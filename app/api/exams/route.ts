@@ -380,9 +380,12 @@ export async function POST(req: Request) {
 
     // 3. RESET TO DEFAULT GENERATOR ALLOCATIONS
     if (action === "reset") {
-      if (fs.existsSync(EXAMS_STORE_FILE)) {
-        fs.unlinkSync(EXAMS_STORE_FILE);
-      }
+      memoryInvigilations = null;
+      try {
+        if (fs.existsSync(TMP_EXAMS_STORE_FILE)) {
+          fs.unlinkSync(TMP_EXAMS_STORE_FILE);
+        }
+      } catch (e) {}
       const resetList = initializeInvigilations();
       return NextResponse.json({
         success: true,
