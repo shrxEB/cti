@@ -550,21 +550,29 @@ export default function TimetablePage() {
                               // Pick harmonious pastel palette based on course index
                               const paletteIndex = (cell.course_id.charCodeAt(cell.course_id.length - 1) + colIndex) % CARD_PALETTES.length;
                               const palette = CARD_PALETTES[paletteIndex];
+                              const isApproved = cell.isExtraClass;
+                              const cardBg = isApproved ? "bg-emerald-50/95" : palette.bg;
+                              const cardBorder = isApproved ? "border-emerald-300 ring-2 ring-emerald-400/50" : palette.border;
 
                               return (
                                 <div key={d.key} className="border-l border-gray-100/70 px-1.5 py-1">
                                   <div
-                                    className={`h-full p-2.5 rounded-2xl border ${palette.bg} ${palette.border} shadow-2xs hover:shadow-md transition-all flex flex-col justify-between`}
+                                    className={`h-full p-2.5 rounded-2xl border ${cardBg} ${cardBorder} shadow-2xs hover:shadow-md transition-all flex flex-col justify-between`}
                                   >
                                     <div>
                                       <div className="flex items-center justify-between gap-1">
-                                        <span className={`text-[11px] font-extrabold ${palette.text} truncate`}>
+                                        <span className={`text-[11px] font-extrabold ${isApproved ? "text-emerald-950" : palette.text} truncate`}>
                                           {cell.course_title}
                                         </span>
-                                        <span className={`w-2 h-2 rounded-full shrink-0 ${palette.dot}`} />
+                                        <span className={`w-2 h-2 rounded-full shrink-0 ${isApproved ? "bg-emerald-600 animate-pulse" : palette.dot}`} />
                                       </div>
-                                      <div className={`text-[10px] font-semibold ${palette.timeText} mt-0.5`}>
-                                        {row.time}
+                                      <div className={`text-[10px] font-semibold ${isApproved ? "text-emerald-700" : palette.timeText} mt-0.5 flex items-center justify-between`}>
+                                        <span>{row.time}</span>
+                                        {isApproved && (
+                                          <span className="text-[9px] font-black uppercase tracking-wider px-1 py-0.5 rounded bg-emerald-200 text-emerald-900">
+                                            Extra Class
+                                          </span>
+                                        )}
                                       </div>
                                     </div>
 

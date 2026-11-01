@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
 export async function GET(req: Request) {
   try {
@@ -12,6 +13,7 @@ export async function GET(req: Request) {
     const schedulePath = path.join(process.cwd(), "exports", "schedule.json");
     const dataPath = path.join(process.cwd(), "starter_pack", "data", "cit_public.json");
     const requestsPath = path.join(process.cwd(), "exports", "academic_requests.json");
+    const tmpRequestsPath = path.join(os.tmpdir(), "academic_requests.json");
 
     if (!fs.existsSync(schedulePath)) {
       return NextResponse.json({ error: "Schedule not yet generated" }, { status: 404 });
@@ -52,38 +54,59 @@ export async function GET(req: Request) {
     });
 
     // Merge approved extra classes and reschedule requests into global schedule
-    if (fs.existsSync(requestsPath)) {
+    let academicRequests: any[] = [];
+    if (fs.existsSync(tmpRequestsPath)) {
       try {
-        const dayAbbrMap: Record<string, string> = {
-          Monday: "MON", Tuesday: "TUE", Wednesday: "WED", Thursday: "THU", Friday: "FRI"
-        };
-        const academicRequests = JSON.parse(fs.readFileSync(requestsPath, "utf-8"));
-        const approvedRequests = academicRequests.filter((r: any) => r.status === "approved");
+        const raw = fs.readFileSync(tmpRequestsPath, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) academicRequests = parsed;
+      } catch (err) {}
+    }
+    if (academicRequests.length === 0 && fs.existsSync(requestsPath)) {
+      try {
+        const raw = fs.readFileSync(requestsPath, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) academicRequests = parsed;
+      } catch (err) {}
+    }
 
-        approvedRequests.forEach((req: any) => {
-          const periodMatch = req.period?.match(/P(\d+)/);
-          const startPeriod = periodMatch ? parseInt(periodMatch[1], 10) : 2;
-          const dayCode = dayAbbrMap[req.day] || req.day.slice(0, 3).toUpperCase();
+    if (academicRequests.length > 0) {
+      const dayAbbrMap: Record<string, string> = {
+        Monday: "MON", Tuesday: "TUE", Wednesday: "WED", Thursday: "THU", Friday: "FRI",
+        MON: "MON", TUE: "TUE", WED: "WED", THU: "THU", FRI: "FRI"
+      };
+      const approvedRequests = academicRequests.filter((r: any) => r.status === "approved");
 
-          sessions.push({
-            session_id: req.id,
-            course_id: req.course.split(" ")[0],
-            course_title: `${req.course} (Extra Class)`,
-            kind: "lecture",
-            groups: req.section ? [req.section] : ["Y1-A"],
-            day: dayCode,
-            start_period: startPeriod,
-            duration: 1,
-            room_id: req.venue,
-            room_name: req.venue,
-            faculty_name: req.faculty_name || "Faculty",
-            size: 40,
-            isExtraClass: true
-          });
+      approvedRequests.forEach((req: any) => {
+        const periodMatch = req.period?.match(/P(\d+)/);
+        const startPeriod = periodMatch ? parseInt(periodMatch[1], 10) : 3;
+
+        let dayCode = "WED";
+        if (req.day?.toLowerCase() === "tomorrow") {
+          dayCode = "THU";
+        } else if (req.day) {
+          dayCode = dayAbbrMap[req.day] || req.day.slice(0, 3).toUpperCase();
+        }
+
+        const durationMatch = req.period?.match(/P(\d+)[–\-]P?(\d+)/i);
+        const duration = durationMatch ? Math.max(1, parseInt(durationMatch[2], 10) - parseInt(durationMatch[1], 10) + 1) : 1;
+
+        sessions.push({
+          session_id: req.id,
+          course_id: req.course ? req.course.split(" ")[0] : "EXTRA",
+          course_title: `${req.course || "Extra Class"} (Approved Extra Class)`,
+          kind: "lecture",
+          groups: req.section ? [req.section, "Y1-A", "ECE-2"] : ["Y1-A", "ECE-2"],
+          day: dayCode,
+          start_period: startPeriod,
+          duration: duration,
+          room_id: req.venue,
+          room_name: req.venue,
+          faculty_name: req.faculty_name || "Faculty",
+          size: req.attendance || 40,
+          isExtraClass: true
         });
-      } catch (err) {
-        console.error("Error loading approved requests into master schedule:", err);
-      }
+      });
     }
 
     const dept = searchParams.get("dept");

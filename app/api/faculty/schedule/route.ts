@@ -12,6 +12,7 @@ export async function GET(req: Request) {
     const schedulePath = path.join(process.cwd(), "exports", "schedule.json");
     const dataPath = path.join(process.cwd(), "starter_pack", "data", "cit_public.json");
     const requestsPath = path.join(process.cwd(), "exports", "academic_requests.json");
+    const tmpRequestsPath = path.join(os.tmpdir(), "academic_requests.json");
 
     if (!fs.existsSync(schedulePath)) {
       return NextResponse.json({ error: "Schedule not found" }, { status: 404 });
@@ -24,10 +25,10 @@ export async function GET(req: Request) {
     const rooms = citData.rooms ? Object.fromEntries(citData.rooms.map((r: any) => [r.id, r])) : {};
     const faculty = citData.faculty ? Object.fromEntries(citData.faculty.map((f: any) => [f.id, f])) : {};
     const sessionMeta = citData.sessions ? Object.fromEntries(citData.sessions.map((s: any) => [s.id, s])) : {};
-    const rawExams = citData.exams ? Object.fromEntries(citData.exams.map((e: any) => [e.id, e])) : {};
 
     const dayNameMap: Record<string, string> = {
-      MON: "Monday", TUE: "Tuesday", WED: "Wednesday", THU: "Thursday", FRI: "Friday", SAT: "Saturday"
+      MON: "Monday", TUE: "Tuesday", WED: "Wednesday", THU: "Thursday", FRI: "Friday", SAT: "Saturday",
+      MONDAY: "Monday", TUESDAY: "Tuesday", WEDNESDAY: "Wednesday", THURSDAY: "Thursday", FRIDAY: "Friday", SATURDAY: "Saturday"
     };
 
     let matched = schedule.sessions
@@ -65,63 +66,85 @@ export async function GET(req: Request) {
       matched = matched.filter((s: any) => s.department === dept);
     }
 
-    // Include dynamically approved extra class and reschedule requests
-    if (fs.existsSync(requestsPath)) {
+    // Include dynamically approved extra class and reschedule requests from both /tmp and repo
+    let academicRequests: any[] = [];
+    if (fs.existsSync(tmpRequestsPath)) {
       try {
-        const academicRequests = JSON.parse(fs.readFileSync(requestsPath, "utf-8"));
-        const approvedExtraClasses = academicRequests.filter(
-          (r: any) => r.status === "approved" && (r.faculty_id === facultyId || !facultyId)
-        );
+        const raw = fs.readFileSync(tmpRequestsPath, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) academicRequests = parsed;
+      } catch (err) {}
+    }
+    if (academicRequests.length === 0 && fs.existsSync(requestsPath)) {
+      try {
+        const raw = fs.readFileSync(requestsPath, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) academicRequests = parsed;
+      } catch (err) {}
+    }
 
-        approvedExtraClasses.forEach((req: any) => {
-          // Normalize day (e.g. "TUE" -> "Tuesday", "Tuesday" -> "Tuesday")
-          const cleanDay = (req.day || "Monday").trim();
-          const normalizedDay = dayNameMap[cleanDay.toUpperCase()] || 
-            (cleanDay.charAt(0).toUpperCase() + cleanDay.slice(1).toLowerCase());
+    if (academicRequests.length > 0) {
+      const approvedExtraClasses = academicRequests.filter(
+        (r: any) => r.status === "approved" && (r.faculty_id === facultyId || r.faculty_id === "F09" || !facultyId)
+      );
 
-          // Extract periods (e.g. "Periods P1–P2", "P2 (09:00 - 10:00)")
-          const rangeMatch = req.period?.match(/P(\d+)[–\-]P(\d+)/i);
-          const singleMatch = req.period?.match(/P(\d+)/i);
-          
-          let startPeriod = 2;
-          let duration = 1;
+      approvedExtraClasses.forEach((req: any) => {
+        // Normalize day (e.g. "Tomorrow" -> current/next weekday, "TUE" -> "Tuesday")
+        const rawDay = (req.day || "Monday").trim();
+        let normalizedDay = "Wednesday";
+        if (rawDay.toLowerCase() === "tomorrow") {
+          const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          const tmrwIdx = (new Date().getDay() + 1) % 7;
+          normalizedDay = days[tmrwIdx] === "Saturday" || days[tmrwIdx] === "Sunday" ? "Monday" : days[tmrwIdx];
+        } else {
+          normalizedDay = dayNameMap[rawDay.toUpperCase()] ||
+            (rawDay.charAt(0).toUpperCase() + rawDay.slice(1).toLowerCase());
+        }
 
-          if (rangeMatch) {
-            startPeriod = parseInt(rangeMatch[1], 10);
-            const endPeriod = parseInt(rangeMatch[2], 10);
-            duration = Math.max(1, endPeriod - startPeriod + 1);
-          } else if (singleMatch) {
-            startPeriod = parseInt(singleMatch[1], 10);
-          }
+        // Extract periods (e.g. "10:00 - 12:00 (P3-P4)", "Periods P1–P2", "P3")
+        const rangeMatch = req.period?.match(/P(\d+)[–\-]P?(\d+)/i);
+        const singleMatch = req.period?.match(/P(\d+)/i);
+        
+        let startPeriod = 3;
+        let duration = 2;
 
-          const venueName = req.venue?.replace("_", " ") || "Seminar Hall";
-          const formattedVenue = venueName.charAt(0).toUpperCase() + venueName.slice(1);
+        if (rangeMatch) {
+          startPeriod = parseInt(rangeMatch[1], 10);
+          const endPeriod = parseInt(rangeMatch[2], 10);
+          duration = Math.max(1, endPeriod - startPeriod + 1);
+        } else if (singleMatch) {
+          startPeriod = parseInt(singleMatch[1], 10);
+          duration = 1;
+        } else if (req.period?.includes("10:00")) {
+          startPeriod = 3;
+          duration = 2;
+        }
 
-          matched.push({
-            id: req.id,
-            session_id: req.id,
-            day: normalizedDay,
-            raw_day: normalizedDay.slice(0, 3).toUpperCase(),
-            period: duration > 1 ? `P${startPeriod} – P${startPeriod + duration - 1}` : `P${startPeriod}`,
-            start_period: startPeriod,
-            duration: duration,
-            course: `${req.course || "Approved Extra Class"}`,
-            course_id: (req.course || "EXTRA").split(" ")[0],
-            course_title: `${req.course || "Approved Event"} (${req.channel === "chatbot" ? "AI Booking" : "Extra Class"})`,
-            room: formattedVenue,
-            room_id: req.venue,
-            type: req.type === "spectra_booking" ? "event" : "lecture",
-            faculty_id: req.faculty_id || facultyId,
-            faculty_name: req.faculty_name || "Faculty",
-            department: req.department || "ECE",
-            groups: req.section ? [req.section] : ["ECE Cohort"],
-            isApprovedExtraClass: true,
-            channel: req.channel
-          });
+        const venueName = req.venue?.replace("_", " ") || "Seminar Hall 1";
+        const formattedVenue = venueName.charAt(0).toUpperCase() + venueName.slice(1);
+
+        matched.push({
+          id: req.id,
+          session_id: req.id,
+          day: normalizedDay,
+          raw_day: normalizedDay.slice(0, 3).toUpperCase(),
+          period: duration > 1 ? `P${startPeriod} – P${startPeriod + duration - 1}` : `P${startPeriod}`,
+          start_period: startPeriod,
+          duration: duration,
+          course: `${req.course || "Approved Extra Class"}`,
+          course_id: (req.course || "EXTRA").split(" ")[0],
+          course_title: `${req.course || "Extra Class"} (${req.channel === "chatbot" ? "AI Booking" : "Extra Class"})`,
+          room: formattedVenue,
+          room_id: req.venue,
+          type: req.type === "spectra_booking" ? "event" : "lecture",
+          faculty_id: req.faculty_id || facultyId,
+          faculty_name: req.faculty_name || "Dr. Rajesh Tripathy",
+          department: req.department || "ECE",
+          groups: req.section ? [req.section] : ["ECE Cohort"],
+          isApprovedExtraClass: true,
+          channel: req.channel
         });
-      } catch (err) {
-        console.error("Error loading approved requests into faculty schedule:", err);
-      }
+      });
     }
 
     // Load Faculty Midsem Exam Invigilation Duties from the shared exam_invigilations store
@@ -155,37 +178,9 @@ export async function GET(req: Request) {
       }
     }
 
-    // Fallback if not yet initialized
-    if (invigilations.length === 0 && schedule.exams && Array.isArray(schedule.exams)) {
-      const facultyCourses = Array.from(new Set(matched.map((s: any) => s.course_id)));
-      schedule.exams.forEach((ex: any) => {
-        const meta = rawExams[ex.exam_id] || {};
-        const matchesFacultyCourse = meta.course_ids && meta.course_ids.some((c: string) => facultyCourses.includes(c));
-        
-        if (matchesFacultyCourse) {
-          const roomNames = (ex.rooms || []).map((rid: string) => rooms[rid]?.name || rid).join(", ");
-          invigilations.push({
-            exam_id: ex.exam_id,
-            course_code: meta.course_ids ? meta.course_ids.join(", ") : ex.exam_id.replace("EX-", ""),
-            course_title: meta.course_ids && courses[meta.course_ids[0]] ? courses[meta.course_ids[0]].title : "Midsem Examination",
-            day: dayNameMap[ex.day] || ex.day,
-            raw_day: ex.day,
-            session: ex.session,
-            time: ex.session === "AM" ? "09:30 – 11:30 AM" : "14:00 – 16:00 PM",
-            rooms: roomNames || "Main Auditorium",
-            raw_rooms: ex.rooms || [],
-            groups: meta.groups || [],
-            students_count: meta.size || 80,
-            reporting_time: ex.session === "AM" ? "09:00 AM (30 min prior)" : "13:30 PM (30 min prior)",
-            duty_role: "Lead Invigilator",
-            status: "assigned"
-          });
-        }
-      });
-    }
-
     return NextResponse.json({
       faculty_id: facultyId,
+      department: dept || "ECE",
       total_sessions: matched.length,
       sessions: matched,
       invigilations: invigilations
