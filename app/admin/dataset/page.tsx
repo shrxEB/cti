@@ -16,26 +16,15 @@ export default function DatasetPage() {
   const [downloading, setDownloading] = useState(false);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
 
-  const handleDownloadScheduleJson = () => {
+  const handleDownloadScheduleJson = async () => {
     setDownloading(true);
     setStatusMsg(null);
-    setTimeout(() => {
-      // Create mock schedule.json export compliant with Section 2 Item 9
-      const scheduleExport = {
-        meta: {
-          institution: "Chilika Institute of Technology",
-          semester: "Autumn 2026",
-          week: "Week 7 & 8",
-          generated_at: new Date().toISOString(),
-          solver_status: "OPTIMAL",
-          hard_violations: 0,
-        },
-        timetable_sessions: 189,
-        midsem_exams: 41,
-        venue_bookings: 25,
-      };
+    try {
+      // Fetch official schedule from exports/schedule.json via /api/schedule
+      const res = await fetch("/api/schedule?_t=" + Date.now(), { cache: "no-store" });
+      const fullData = await res.json();
 
-      const blob = new Blob([JSON.stringify(scheduleExport, null, 2)], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(fullData, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -45,9 +34,12 @@ export default function DatasetPage() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
+      setStatusMsg("✓ Official schedule.json exported directly from solver pipeline!");
+    } catch (e) {
+      setStatusMsg("Failed to download schedule.json");
+    } finally {
       setDownloading(false);
-      setStatusMsg("✓ schedule.json generated and downloaded for official validator.py verification!");
-    }, 600);
+    }
   };
 
   return (

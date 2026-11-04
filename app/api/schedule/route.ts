@@ -124,15 +124,24 @@ export async function GET(req: Request) {
       );
     }
 
-    return NextResponse.json({
-      dataset_id: schedule.dataset_id,
-      team: schedule.team,
-      total_sessions: sessions.length,
-      sessions,
-      rooms: citData.rooms || [],
-      fest_week: schedule.fest_week,
-      exams: schedule.exams
-    });
+    return NextResponse.json(
+      {
+        dataset_id: schedule.dataset_id,
+        team: schedule.team,
+        total_sessions: sessions.length,
+        sessions,
+        rooms: citData.rooms || [],
+        fest_week: schedule.fest_week,
+        exams: schedule.exams,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("Failed to load schedule:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

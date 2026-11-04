@@ -43,21 +43,14 @@ export interface AcademicRequest {
 const REQUESTS_FILE = path.join(process.cwd(), "exports", "academic_requests.json");
 const TMP_REQUESTS_FILE = path.join(os.tmpdir(), "academic_requests.json");
 
-// In-memory cache across serverless warm invocations
-let memoryRequests: AcademicRequest[] | null = null;
-
+// Direct read without stale in-memory freeze so serverless lambdas always see disk updates
 function readRequests(): AcademicRequest[] {
-  if (memoryRequests && memoryRequests.length > 0) {
-    return memoryRequests;
-  }
-
-  // 1. Try reading from /tmp (persisted during serverless container life)
+  // 1. Try reading from /tmp
   if (fs.existsSync(TMP_REQUESTS_FILE)) {
     try {
       const raw = fs.readFileSync(TMP_REQUESTS_FILE, "utf-8");
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        memoryRequests = parsed;
         return parsed;
       }
     } catch (e) {
@@ -71,7 +64,6 @@ function readRequests(): AcademicRequest[] {
       const raw = fs.readFileSync(REQUESTS_FILE, "utf-8");
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        memoryRequests = parsed;
         return parsed;
       }
     } catch (e) {
@@ -79,12 +71,10 @@ function readRequests(): AcademicRequest[] {
     }
   }
 
-  // 3. Fallback: return empty list if no requests submitted yet
   return [];
 }
 
 function writeRequests(requests: AcademicRequest[]) {
-  memoryRequests = requests;
   try {
     fs.writeFileSync(TMP_REQUESTS_FILE, JSON.stringify(requests, null, 2), "utf-8");
   } catch (err) {
@@ -110,7 +100,7 @@ export async function GET(req: Request) {
     let list = readRequests();
 
     if (facultyId) {
-      list = list.filter((r) => r.faculty_id === facultyId);
+      list = list.filter((r) => r.faculty_id === facultyId || !r.faculty_id);
     }
     if (department) {
       list = list.filter((r) => r.department.toLowerCase().includes(department.toLowerCase()));
@@ -119,7 +109,16 @@ export async function GET(req: Request) {
       list = list.filter((r) => r.status === status);
     }
 
-    return NextResponse.json({ requests: list });
+    return NextResponse.json(
+      { requests: list },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      }
+    );
   } catch (err) {
     return NextResponse.json({ error: "Failed to fetch requests" }, { status: 500 });
   }

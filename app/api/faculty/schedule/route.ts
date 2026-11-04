@@ -178,13 +178,22 @@ export async function GET(req: Request) {
       }
     }
 
-    return NextResponse.json({
-      faculty_id: facultyId,
-      department: dept || "ECE",
-      total_sessions: matched.length,
-      sessions: matched,
-      invigilations: invigilations
-    });
+    return NextResponse.json(
+      {
+        faculty_id: facultyId,
+        department: dept || "ECE",
+        total_sessions: matched.length,
+        sessions: matched,
+        invigilations: invigilations,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("Failed to load faculty schedule:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

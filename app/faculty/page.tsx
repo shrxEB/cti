@@ -124,7 +124,10 @@ function FacultyContent() {
     const loadLiveFacultySchedule = async () => {
       setLoadingSchedule(true);
       try {
-        const res = await fetch("/api/faculty/schedule?faculty_id=F09");
+        const res = await fetch(`/api/faculty/schedule?faculty_id=F09&_t=${Date.now()}`, {
+          cache: "no-store",
+          headers: { Pragma: "no-cache" },
+        });
         const data = await res.json();
         if (data.sessions && data.sessions.length > 0) {
           setSchedule(
@@ -298,7 +301,10 @@ function FacultyContent() {
 
   const fetchFacultyRequests = async () => {
     try {
-      const res = await fetch("/api/requests");
+      const res = await fetch(`/api/requests?_t=${Date.now()}`, {
+        cache: "no-store",
+        headers: { Pragma: "no-cache" },
+      });
       const data = await res.json();
       if (data.requests) {
         setFacultyRequests(data.requests);
@@ -310,6 +316,11 @@ function FacultyContent() {
 
   useEffect(() => {
     fetchFacultyRequests();
+    // Poll every 3 seconds while on page so Dean approvals update live without page reload
+    const pollInterval = setInterval(() => {
+      fetchFacultyRequests();
+    }, 3000);
+    return () => clearInterval(pollInterval);
   }, []);
 
   const handleAddLeave = (e: React.FormEvent) => {

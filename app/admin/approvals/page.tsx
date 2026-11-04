@@ -105,6 +105,11 @@ export default function ApprovalsPage() {
 
   useEffect(() => {
     loadRequests();
+    // Auto-refresh every 3.5s so newly submitted requests pop up without manual multiple reloads
+    const timer = setInterval(() => {
+      loadRequests();
+    }, 3500);
+    return () => clearInterval(timer);
   }, []);
 
   const approve = async (id: string) => {
